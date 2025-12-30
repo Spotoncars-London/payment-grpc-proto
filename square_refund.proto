@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package payment.v1;
+
+// Request to refund a payment
+message RefundPaymentRequest {
+  string payment_id = 1;      // ID of the payment to refund
+  int64 amount = 2;           // refund amount in smallest currency unit
+  string currency = 3;        // ISO 4217 currency code, e.g., "GBP"
+}
+
+// Response after refund
+message RefundPaymentResponse {
+  string status = 1;          // e.g., "COMPLETED", "PENDING", "FAILED"
+}
+
+// Refund service
+service RefundService {
+  rpc RefundPayment(RefundPaymentRequest) returns (RefundPaymentResponse);
+}

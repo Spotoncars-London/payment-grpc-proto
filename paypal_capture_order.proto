@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package payment.paypal.v1;
+
+message CaptureOrderWithDetailedVerificationRequest {
+  string order_id = 1;
+  int64 expected_amount = 2;          // smallest unit (cents)
+  string currency = 3;                // ISO 4217, e.g., "USD"
+  optional string expected_description = 4;
+  optional double allowed_amount_variance = 5;  // percentage tolerance
+  optional string order_description = 6;
+  optional string invoice_id = 7;
+  optional string custom_id = 8;
+}
+
+message OrderVerificationDetails {
+  string order_id = 1;
+  string status = 2;
+  bool amount_matches = 3;
+  bool currency_matches = 4;
+  bool variance_within_tolerance = 5;
+  double variance_percentage = 6;
+}
+
+message CaptureOrderResponse {
+  string order_id = 1;
+  string status = 2;
+  string capture_id = 3;
+  OrderVerificationDetails verification_details = 4;
+}
+
+service PayPalService {
+  rpc CaptureOrderWithDetailedVerification(CaptureOrderWithDetailedVerificationRequest)
+    returns (CaptureOrderResponse);
+}

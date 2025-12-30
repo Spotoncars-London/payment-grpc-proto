@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package payment.square.v1;
+
+message CreateSquarePaymentRequest {
+  string nonce = 1;
+  int64 amount = 2;      // smallest unit (e.g. cents)
+  string currency = 3;   // ISO 4217, e.g. "USD"
+  string note = 4;
+  string verificationToken = 5;
+
+}
+
+message CreateSquarePaymentResponse {
+  string payment_id = 1;
+  string status = 2;
+}
+
+service PaymentService {
+  rpc CreatePayment(CreateSquarePaymentRequest) returns (CreateSquarePaymentResponse);
+}
