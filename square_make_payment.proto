@@ -16,6 +16,15 @@ message CreateSquarePaymentResponse {
   string status = 2;
 }
 
+message MakePaymentLinkRequest {
+  int64 amount = 1;      // smallest unit (e.g. cents)
+}
+
+message MakePaymentLinkResponse {
+  string url = 1;
+}
+
 service PaymentService {
   rpc CreatePayment(CreateSquarePaymentRequest) returns (CreateSquarePaymentResponse);
+  rpc MakePaymentLink(MakePaymentLinkRequest) returns (MakePaymentLinkResponse);
 }
