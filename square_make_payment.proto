@@ -8,6 +8,7 @@ message CreateSquarePaymentRequest {
   string currency = 3;   // ISO 4217, e.g. "USD"
   string note = 4;
   string verificationToken = 5;
+  string booking_reference = 6;
 
 }
 
@@ -24,7 +25,18 @@ message MakePaymentLinkResponse {
   string url = 1;
 }
 
+message InitiateRefundRequest {
+  string booking_reference = 1;
+}
+
+message InitiateRefundResponse {
+  string refund_id = 1;
+  string status = 2;
+  string payment_id = 3;
+}
+
 service PaymentService {
   rpc CreatePayment(CreateSquarePaymentRequest) returns (CreateSquarePaymentResponse);
   rpc MakePaymentLink(MakePaymentLinkRequest) returns (MakePaymentLinkResponse);
+  rpc InitiateRefund(InitiateRefundRequest) returns (InitiateRefundResponse);
 }
