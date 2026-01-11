@@ -8,7 +8,7 @@ message CreateSquarePaymentRequest {
   string currency = 3;   // ISO 4217, e.g. "USD"
   string note = 4;
   string verificationToken = 5;
-  string booking_reference = 6;
+  string bookingReference = 6;
 
 }
 
@@ -19,7 +19,7 @@ message CreateSquarePaymentResponse {
 
 message MakePaymentLinkRequest {
   int64 amount = 1;
-  string booking_reference = 2;
+  string bookingReference = 2;
 }
 
 message MakePaymentLinkResponse {
