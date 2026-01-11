@@ -27,7 +27,7 @@ message MakePaymentLinkResponse {
 }
 
 message InitiateRefundRequest {
-  string booking_reference = 1;
+  string bookingReference = 1;
 }
 
 message InitiateRefundResponse {
