@@ -9,7 +9,7 @@ message CreateSquarePaymentRequest {
   string note = 4;
   string verificationToken = 5;
   string bookingReference = 6;
-
+  int32 customer_pk = 7;
 }
 
 message CreateSquarePaymentResponse {
