@@ -20,6 +20,7 @@ message CreateSquarePaymentResponse {
 message MakePaymentLinkRequest {
   int64 amount = 1;
   string bookingReference = 2;
+  int32 customer_pk = 3;
 }
 
 message MakePaymentLinkResponse {
@@ -36,8 +37,55 @@ message InitiateRefundResponse {
   string payment_id = 3;
 }
 
+message GetCustomerPaymentHistoryRequest {
+  int32 customer_pk = 1;
+}
+
+message PaymentLogItem {
+  string id = 1;
+  string provider = 2;
+  string payment_id = 3;
+  string status = 4;
+  int64 amount = 5;
+  string currency = 6;
+  string card_brand = 7;
+  string card_last4 = 8;
+  string created_at = 9;
+  string booking_reference = 10;
+}
+
+message FailedPaymentItem {
+  string id = 1;
+  string provider = 2;
+  string error_code = 3;
+  string error_message = 4;
+  int64 amount = 5;
+  string currency = 6;
+  string card_brand = 7;
+  string card_last4 = 8;
+  string failed_at = 9;
+}
+
+message RefundItem {
+  string id = 1;
+  string provider = 2;
+  string refund_id = 3;
+  string payment_id = 4;
+  string status = 5;
+  int64 amount = 6;
+  string currency = 7;
+  string created_at = 8;
+}
+
+message GetCustomerPaymentHistoryResponse {
+  repeated PaymentLogItem payment_logs = 1;
+  repeated FailedPaymentItem failed_payments = 2;
+  repeated RefundItem refunds = 3;
+}
+
 service PaymentService {
   rpc CreatePayment(CreateSquarePaymentRequest) returns (CreateSquarePaymentResponse);
   rpc MakePaymentLink(MakePaymentLinkRequest) returns (MakePaymentLinkResponse);
   rpc InitiateRefund(InitiateRefundRequest) returns (InitiateRefundResponse);
+  rpc GetCustomerPaymentHistory(GetCustomerPaymentHistoryRequest) returns (GetCustomerPaymentHistoryResponse);
 }
